@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
 import { FaArrowLeftLong, FaArrowRight } from "react-icons/fa6";
 import { useState } from "react";
@@ -24,12 +25,16 @@ export default function Category() {
     Phone,
     Computers,
     SmartWatch,
-    Camera,
+    Phone,
     Headphone,
     Gaming,
   ];
+  const [showAll, setShowAll] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const bestsellingproducts = [Coat, bag, cpucooler, bookshelf];
-
+  const handleAllProducts = () => {
+    setShowAll((prev) => !prev);
+  };
   const prevSlide = () => {
     setCurrent((prev) => (prev === 0 ? products.length - 1 : prev - 1));
   };
@@ -75,57 +80,70 @@ export default function Category() {
             }}
           >
             {products.map((product, index) => (
-              <div key={index} className="min-w-62.5  p-4 rounded">
-                <img
-                  src={product.src}
-                  alt="product"
-                  className="w-full h-75 object-contain rounded"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="mt-10">
-          <div className="border-t border-gray-300"></div>
-        </div>
-      </div>
-      <div className="max-w-7xl mx-auto px-4 mt-16">
-        <div className="flex items-center gap-3">
-          <div className="w-4 h-8 bg-red-500 rounded mb-5"></div>
-          <h4 className="text-red-500 font-bold text-sm mb-5">This Month</h4>
-        </div>
-        <div className="mb-10 flex items-center justify-between ml-6">
-          <div className="flex items-center gap-15 ">
-            <h2 className="text-2xl font-bold text-black">
-              Best Selling Products
-            </h2>
-          </div>
+              <div
+                key={index}
+                onClick={() => setSelectedIndex(index as any)}
+                className="min-w-62.5 p-4 rounded cursor-pointer"
+              >
+                <div className="relative rounded overflow-hidden">
+                  {selectedIndex === index && (
+                    <div className="absolute inset-0 bg-red-500/40 "></div>
+                  )}
 
-          <div className="flex gap-3">
-            <button className="bg-red-600 text-white px-8 py-3 w-39.75 h-14 rounded hover:bg-red-700 ">
-              View All
-            </button>
-          </div>
-        </div>
-        <div className="mt-2 overflow-hidden">
-          <div className="flex">
-            {bestsellingproducts.map((bestsellingproduct, index) => (
-              <div key={index} className="min-w-62.5 ml-2  p-4 rounded">
-                <img
-                  src={bestsellingproduct.src}
-                  alt="product"
-                  className="w-full h-87.5 object-contain rounded"
-                />
+                  <img
+                    src={product.src}
+                    alt="product"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
               </div>
-            ))}
+            ))}{" "}
+          </div>
+          <div className="mt-10">
+            <div className="border-t border-gray-300"></div>
           </div>
         </div>
-        <div className="mt-20">
-          <img
-            src={Jbl.src}
-            alt="JBL Banner"
-            className="w-full h-auto rounded-lg object-contain"
-          />
+        <div className="max-w-7xl mx-auto px-4 mt-16">
+          <div className="flex items-center gap-3">
+            <div className="w-4 h-8 bg-red-500 rounded mb-5"></div>
+            <h4 className="text-red-500 font-bold text-sm mb-5">This Month</h4>
+          </div>
+          <div className="mb-10 flex items-center justify-between ml-6">
+            <div className="flex items-center gap-15 ">
+              <h2 className="text-2xl font-bold text-black">
+                Best Selling Products
+              </h2>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={handleAllProducts}
+                className="bg-red-600 text-white px-8 py-3 w-39.75 h-14 rounded hover:bg-red-700 "
+              >
+                View All
+              </button>
+            </div>
+          </div>
+          <div className="mt-2 overflow-hidden">
+            <div className="flex">
+              {bestsellingproducts.map((bestsellingproduct, index) => (
+                <div key={index} className="min-w-62.5 ml-2  p-4 rounded">
+                  <img
+                    src={bestsellingproduct.src}
+                    alt="product"
+                    className="w-full h-87.5 object-contain rounded"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="mt-20">
+            <img
+              src={Jbl.src}
+              alt="JBL Banner"
+              className="w-full h-auto rounded-lg object-contain"
+            />
+          </div>
         </div>
       </div>
     </div>
