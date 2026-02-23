@@ -31,7 +31,16 @@ export default function Category() {
   ];
   const [showAll, setShowAll] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(null);
-  const bestsellingproducts = [Coat, bag, cpucooler, bookshelf];
+  const bestsellingproducts = [
+    Coat,
+    bag,
+    cpucooler,
+    bookshelf,
+    Coat,
+    bag,
+    cpucooler,
+    bookshelf,
+  ];
   const handleAllProducts = () => {
     setShowAll((prev) => !prev);
   };
@@ -125,16 +134,32 @@ export default function Category() {
             </div>
           </div>
           <div className="mt-2 overflow-hidden">
-            <div className="flex">
-              {bestsellingproducts.map((bestsellingproduct, index) => (
-                <div key={index} className="min-w-62.5 ml-2  p-4 rounded">
-                  <img
-                    src={bestsellingproduct.src}
-                    alt="product"
-                    className="w-full h-87.5 object-contain rounded"
-                  />
+            <div className="mt-2">
+              {showAll ? (
+                <div className="grid grid-cols-4 gap-6">
+                  {bestsellingproducts.map((product, index) => (
+                    <div key={index} className="p-4 rounded">
+                      <img
+                        src={product.src}
+                        alt="product"
+                        className="w-full h-60 object-contain rounded"
+                      />
+                    </div>
+                  ))}
                 </div>
-              ))}
+              ) : (
+                <div className="flex overflow-hidden">
+                  {bestsellingproducts.map((product, index) => (
+                    <div key={index} className="min-w-62.5 ml-2 p-4 rounded">
+                      <img
+                        src={product.src}
+                        alt="product"
+                        className="w-full h-87.5 object-contain rounded"
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
           <div className="mt-20">
